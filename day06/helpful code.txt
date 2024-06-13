@@ -1,0 +1,60 @@
+
+
+
+===================
+API Key consumer app
+import requests
+import json
+#prodid = "4fe9aa17-7985-46d9-9dbe-3af0ef91d0e2"
+url = f"http://127.0.0.1:8000/employees"
+api_key = "dell1234"
+#headers
+reqheaders = { "X-API-Key" :  api_key}
+#sending the API Key Auth header
+response = requests.get(url ,headers=reqheaders)
+if response.status_code==200:
+    #responseJson = response.json()
+    responseTextJson = response.text
+    responseJson = json.loads(responseTextJson)
+    print(responseTextJson)
+else:
+    print("error occured", response.status_code)
+
+
+====================
+
+
+import requests
+import json
+url = "http://127.0.0.1:8000/api/v1/get_products"
+response = requests.get(url)
+if response.status_code==200:
+    #responseJson = response.json()
+    responseTextJson = response.text
+    responseJson = json.loads(responseTextJson)
+    print(responseTextJson)
+else:
+    print("error occured", response.status_code)
+import pandas as pd
+if responseTextJson != None:
+    scmdf = pd.DataFrame(responseTextJson)
+    display(scmdf)
+else:
+    print("the Json is empty")
+
+
+
+import requests
+import json
+prodid = "4fe9aa17-7985-46d9-9dbe-3af0ef91d0e2"
+url = f"http://127.0.0.1:8000/api/v1/get_products/{prodid}"
+response = requests.get(url)
+if response.status_code==200:
+    #responseJson = response.json()
+    responseTextJson = response.text
+    responseJson = json.loads(responseTextJson)
+    print(responseTextJson)
+else:
+    print("error occured", response.status_code)
+
+===================================
