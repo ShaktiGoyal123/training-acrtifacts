@@ -20,7 +20,9 @@ df_scm = spark.readStream\
         .schema(scm_schema)\
         .option("header","true")\
         .option("maxFilesPerTrigger",1)\
-        .load("C:\\Users\\SHAKTI_GOYAL\\Downloads\\csv_files_streaming")
+        .load("/home/labuser/Documents/training-artifacts/training-acrtifacts/supporting-files")
+
+        
 
 print("Streaming ",df_scm.isStreaming)
 
@@ -28,9 +30,15 @@ print(df_scm.printSchema())
 
 df_scm_01 = df_scm.groupBy("supplierId").agg(avg("supplierSharePrice").alias("TotalSharePrice"))
 
-result = df_scm_01.writeStream\
+# result = df_scm_01.writeStream\
+#           .format("console")\
+#           .outputMode("complete")\
+#           .start()
+
+# complete line
+result = df_scm.writeStream\
           .format("console")\
-          .outputMode("complete")\
+          .outputMode("append")\
           .start()
 
 result.awaitTermination()
@@ -38,6 +46,6 @@ spark.stop()
 
 
 
-
+# .load("C:\\Users\\SHAKTI_GOYAL\\Downloads\\csv_files_streaming")
 
 
